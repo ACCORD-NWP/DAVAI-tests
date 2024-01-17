@@ -5,4 +5,5 @@
 .idea
 
 # locals
-TODO
+nbproject/
+pyproject.toml
