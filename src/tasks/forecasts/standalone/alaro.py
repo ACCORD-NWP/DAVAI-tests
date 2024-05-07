@@ -122,7 +122,7 @@ class StandaloneAlaroForecast(Task, DavaiIALTaskMixin, IncludesTaskMixin):
                     self._wrapped_input(
                         role           = 'ClimPGD',
                         format         = 'fa',
-                        genv           = self.conf.davaienv,
+                        genv           = self.conf.appenv,
                         gvar           = 'pgd_fa_[geometry::tag]',
                         kind           = 'pgdfa',
                         local          = 'Const.Clim.sfx',
