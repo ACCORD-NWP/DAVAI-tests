@@ -25,7 +25,8 @@ def setup(t, **kw):
             Family(tag='arpege', ticket=t, on_error='delayed_fail', nodes=[
                 Family(tag='globaltst149c24', ticket=t, nodes=[
                     Prep(tag='prep-arpege-globaltst149c24', ticket=t, **kw),
-                    StandaloneArpegeForecast(tag='forecast-arpege-globaltst149c24', ticket=t, **kw),
+# Standalone Arpege forecast crashes after prep at ATOS - same as PPF.py
+#                    StandaloneArpegeForecast(tag='forecast-arpege-globaltst149c24', ticket=t, **kw),
                     ], **kw),
                 ], **kw),
             ], **kw),

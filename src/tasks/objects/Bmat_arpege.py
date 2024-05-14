@@ -18,15 +18,16 @@ def setup(t, **kw):
                 Family(tag='default_compilation_flavour', ticket=t, nodes=[
                     BmatSimple(tag='BmatSp', ticket=t, **kw),
                     BmatFlowDependent(tag='BmatWv', ticket=t, **kw),
-                    EnVarAdjoint(tag='EnVarAdjoint', ticket=t, **kw),
-                    LoopFamily(tag='ensread', ticket=t,
-                        loopconf='mpireads',
-                        loopsuffix='-mpi{}',
-                        nodes=[
-                        Family('EnsRead', ticket=t, on_error='delayed_fail', nodes=[
-                            EnsembleRead(tag='EnsembleRead', ticket=t, **kw),
-                            ], **kw),
-                        ], **kw),
+# Bmat_arpege - OOPS based experts (OOPSVariancesExpert or OOPSJoADExpert) can't be found at ATOS - no sense to run
+#                    EnVarAdjoint(tag='EnVarAdjoint', ticket=t, **kw),
+#                    LoopFamily(tag='ensread', ticket=t,
+#                        loopconf='mpireads',
+#                        loopsuffix='-mpi{}',
+#                        nodes=[
+#                        Family('EnsRead', ticket=t, on_error='delayed_fail', nodes=[
+#                            EnsembleRead(tag='EnsembleRead', ticket=t, **kw),
+#                            ], **kw),
+#                        ], **kw),
                     ], **kw),
                 ], **kw),
             ], **kw),

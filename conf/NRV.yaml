@@ -14,7 +14,8 @@ mixs:
 
 objects:
     - Bmat_arpege  # Construction and reading of a B-matrix using an ensemble, EnVar unit tests
-    - ModelTL_arpege # TL model, adjoint test
+# OOPS based expert (OOPSmodelADExpert) can't be found on ATOS - no sense to test
+#    - ModelTL_arpege # TL model, adjoint test
 
 fullpos:
     - Fp_lbc  # Fp_lbc = Fullpos creation of LBC files
