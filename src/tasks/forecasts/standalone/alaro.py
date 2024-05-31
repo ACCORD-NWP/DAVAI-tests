@@ -70,7 +70,7 @@ class StandaloneAlaroForecast(Task, DavaiIALTaskMixin, IncludesTaskMixin):
                 vconf          = self.conf.ref_vconf,
             )
             #-------------------------------------------------------------------------------
-            if self.conf.alaro_version == '1B':  # Alaro with Surfex
+            if self.conf.alaro_version == '1_sfx':  # Alaro with Surfex
                 self._wrapped_input(
                     role           = 'Reference',  # SurfState
                     block          = self.output_block(),
@@ -108,7 +108,7 @@ class StandaloneAlaroForecast(Task, DavaiIALTaskMixin, IncludesTaskMixin):
             #    local          = 'var.sat.misc_rtcoef.01.tgz',
             #)
             #-------------------------------------------------------------------------------
-            if self.conf.alaro_version == '1B':  # Alaro with Surfex
+            if self.conf.alaro_version == '1_sfx':  # Alaro with Surfex
                 self._wrapped_input(
                     role           = 'CoverParams',
                     format         = 'foo',
@@ -122,7 +122,7 @@ class StandaloneAlaroForecast(Task, DavaiIALTaskMixin, IncludesTaskMixin):
                     self._wrapped_input(
                         role           = 'ClimPGD',
                         format         = 'fa',
-                        genv           = self.conf.appenv,
+                        genv           = self.conf.davaienv,
                         gvar           = 'pgd_fa_[geometry::tag]',
                         kind           = 'pgdfa',
                         local          = 'Const.Clim.sfx',
@@ -143,6 +143,18 @@ class StandaloneAlaroForecast(Task, DavaiIALTaskMixin, IncludesTaskMixin):
         # 1.1.2/ Static Resources (namelist(s) & config):
         if 'early-fetch' in self.steps or 'fetch' in self.steps:
             #-------------------------------------------------------------------------------
+            if self.conf.alaro_version == '1_sfx':  # Alaro with Surfex
+                self._wrapped_input(
+                    role           = 'NamelistSurfex',
+                    binary         = 'arpifs',
+                    format         = 'ascii',
+                    genv           = self.conf.davaienv,
+                    intent         = 'inout',
+                    kind           = 'namelist',
+                    local          = 'EXSEG1.nam',
+                    alaro_version  = self.conf.alaro_version,
+                    source         = 'model/[model]/fcst.alaro[alaro_version].nam_surfex',
+                )
             # deactivate FPinline & DDH, activate spnorms:
             tboptions = self._wrapped_input(
                 role           = 'Namelist Deltas to add/remove options',
@@ -197,7 +209,7 @@ class StandaloneAlaroForecast(Task, DavaiIALTaskMixin, IncludesTaskMixin):
                 vconf          = self.conf.shelves_vconf,
             )
             #-------------------------------------------------------------------------------
-            if self.conf.alaro_version == '1B':  # Alaro with Surfex
+            if self.conf.alaro_version == '1_sfx':  # Alaro with Surfex
                 if self.conf.surf_ic_source == 'static':
                     self._wrapped_input(
                         role           = 'Surface Initial conditions',
@@ -253,7 +265,7 @@ class StandaloneAlaroForecast(Task, DavaiIALTaskMixin, IncludesTaskMixin):
 
         # 2.1/ Flow Resources: produced by another task of the same job
         if 'fetch' in self.steps:
-            if self.conf.alaro_version == '1B':  # Alaro with Surfex
+            if self.conf.alaro_version == '1_sfx':  # Alaro with Surfex
                 if self.conf.pgd_source == 'flow':
                     self._wrapped_input(
                         role           = 'PGD',
@@ -317,7 +329,7 @@ class StandaloneAlaroForecast(Task, DavaiIALTaskMixin, IncludesTaskMixin):
                 fatal          = False
             )
             #-------------------------------------------------------------------------------
-            if self.conf.alaro_version == '1B':  # Alaro with Surfex
+            if self.conf.alaro_version == '1_sfx':  # Alaro with Surfex
                 self._wrapped_output(
                     role           = 'SurfState',
                     block          = self.output_block(),
