@@ -5,8 +5,8 @@ forecasts:
     - standalone_forecast_arpege_globaltst149c24
     - standalone_forecast_arpege_nosfx_globaltst149c24
     - standalone_forecast_ifs_global21
-    - canonical_forecasts_arpege_global798c22              # canonical forecasts = close to operations, including extra components
-    - canonical_forecasts_arpege_apl_global798c22
+    - canonical_forecast_arpege_global798c22               # canonical forecasts = close to operations, including extra components
+    - canonical_forecast_arpege_apl_global798c22
 
 assim:
     - OOPSBSM_4D_arpege  # BSM = Bator+Screening+Minim
