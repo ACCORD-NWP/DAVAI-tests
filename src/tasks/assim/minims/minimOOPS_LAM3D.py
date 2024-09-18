@@ -198,9 +198,19 @@ class Minim(Task, DavaiIALTaskMixin, IncludesTaskMixin):
                 genv           = self.conf.appenv,
                 kind           = 'namelist',
                 local          = 'naml_[object]',
-                hook_write     = (hook_gnam, {'NAMOOPSWRITE':{'CDMEXP':'MXMINI'}}),
-                object         = ['observations_aro','standard_geometry','bmatrix_aro',
-                                  'write_analysis_aro'],
+                object         = ['standard_geometry','bmatrix_aro'],
+                source         = 'objects/naml_[object]',
+            )
+            #-------------------------------------------------------------------------------
+            self._wrapped_input(
+                role           = 'OOPSObsObjectsNamelists',
+                binary         = 'arome',
+                format         = 'ascii',
+                intent         = 'inout',
+                genv           = self.conf.appenv,
+                kind           = 'namelist',
+                local          = 'naml_[object]',
+                object         = ['observations_aro'],
                 source         = 'objects/naml_[object]',
             )
             #-------------------------------------------------------------------------------
@@ -211,7 +221,7 @@ class Minim(Task, DavaiIALTaskMixin, IncludesTaskMixin):
                 genv           = self.conf.appenv,
                 kind           = 'namelist',
                 local          = 'namelist_[object]',
-                object         = ['gom_setup_0', 'gom_setup_hres', 'jb_cov'],
+                object         = ['gom_setup_0', 'gom_setup_hres'],  #, 'jb_cov'
                 source         = 'objects/naml_[object]',
             )
             #-------------------------------------------------------------------------------
@@ -223,7 +233,21 @@ class Minim(Task, DavaiIALTaskMixin, IncludesTaskMixin):
                 intent         = 'inout',
                 kind           = 'namelist',
                 local          = 'naml_[object]',
+                hook_tstep     = (hook_gnam, {'NAMRIP':{'TSTEP':7200.}}),
                 object         = ['nonlinear_model_3dv_aro', 'linear_model_aro', 'traj_model_3dv_aro'],
+                source         = 'objects/naml_[object]',
+            )
+            #-------------------------------------------------------------------------------
+            self._wrapped_input(
+                role           = 'OOPSWriteObjectsNamelists',
+                binary         = 'arome',
+                format         = 'ascii',
+                intent         = 'inout',
+                genv           = self.conf.appenv,
+                kind           = 'namelist',
+                local          = 'naml_[object]',
+                hook_write     = (hook_gnam, {'NAMOOPSWRITE':{'CDMEXP':'MXMINI'}}),
+                object         = ['write_analysis_aro'],
                 source         = 'objects/naml_[object]',
             )
             #-------------------------------------------------------------------------------
