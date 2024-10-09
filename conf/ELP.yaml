@@ -27,5 +27,6 @@ fullpos:
     - Fp_lbc  # Fp_lbc = Fullpos creation of LBC files
 
 surfex:
-    - PP_geo  # PP_geo = PGD+Prep on a range of Gauss & LAM geometries
+    - PP_geo_arome   # PP_geo_arome  = PGD+Prep on a range of LAM geometries
+    - PP_geo_arpege  # PP_geo_arpege = PGD+Prep on a range of Gaussian geometries
 

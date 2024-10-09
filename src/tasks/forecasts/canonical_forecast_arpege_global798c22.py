@@ -9,10 +9,7 @@ import vortex
 from vortex import toolbox
 from vortex.layout.nodes import Driver, Family, LoopFamily
 
-from tasks.surfex.pgd import PGD
-from tasks.surfex.prep import Prep
 from .canonical.arpege import CanonicalArpegeForecast
-from .canonical.arpege_apl import CanonicalArpegeAplForecast
 
 
 def setup(t, **kw):
@@ -24,7 +21,6 @@ def setup(t, **kw):
                 Family(tag='arpege', ticket=t, on_error='delayed_fail', nodes=[
                     Family(tag='global798c22', ticket=t, nodes=[
                         CanonicalArpegeForecast(tag='forecast-arpege-global798c22', ticket=t, on_error='delayed_fail', **kw),
-                        CanonicalArpegeAplForecast(tag='forecast-arpege_apl-global798c22', ticket=t, **kw),
                         ], **kw),
                     ], **kw),
             ], **kw),

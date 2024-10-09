@@ -26,9 +26,12 @@ class DavaiJobAssistantPlugin(JobAssistantPlugin):
     def plugable_env_setup(self, t, **kw):  # @UnusedVariable
         t.env.MPIAUTOCONFIG = self.masterja.conf.mpiautoconfig
         t.env.DAVAI_SERVER = self.masterja.conf.davai_server
-        t.env.EC_MEMINFO = '0'  # FIXME: without, some exec crash at EC_MEMINFO setup... -> fixed in CY49 !
+        t.env.LD_LIBRARY_PATH = '/opt/softs/intel/oneapi/2023.2/mpi/2021.10.0/libfabric/lib'
+        t.env.I_MPI_ROOT = '/opt/softs/intel/oneapi/2023.2/mpi/2021.10.0'
         if 'eccodes_samples_path' in self.masterja.conf:
             t.env.ECCODES_SAMPLES_PATH = self.masterja.conf.eccodes_samples_path
+        if 'eccodes_definition_path' in self.masterja.conf:
+            t.env.ECCODES_DEFINITION_PATH = self.masterja.conf.eccodes_definition_path
         # set token from file if not in env
         ciboulai_token = None
         if 'CIBOULAI_TOKEN' not in t.env:
@@ -63,8 +66,7 @@ class DavaiJobAssistantPlugin(JobAssistantPlugin):
         if self.masterja.conf.shelves2bucket:
             vortex_set_aside = dict(defaults=dict(namespace='vortex.archive.fr',
                                                   storage='shelves.bucket.localhost'),
-                                    includes=[self.masterja.conf.input_shelf_global,
-                                              self.masterja.conf.input_shelf_lam])
+                                    includes=[self.masterja.conf.input_shelf,])
             self.masterja.conf.vortex_set_aside = vortex_set_aside
             vortex.toolbox.defaults(vortex_set_aside=vortex_set_aside)
         # jobname for Algos, to broadcast this information to ciboulai

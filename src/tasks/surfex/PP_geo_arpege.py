@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-PP_geo = PGD+Prep on a range of LAM geometries
+PP_geo = PGD+Prep on a range of ARPEGE geometries
 """
 from __future__ import print_function, absolute_import, unicode_literals, division
 
@@ -15,19 +15,6 @@ from tasks.surfex.prep import Prep
 def setup(t, **kw):
     return Driver(tag='drv', ticket=t, options=kw, nodes=[
         Family(tag='default_compilation_flavour', ticket=t, nodes=[
-            Family(tag='arome', ticket=t, on_error='delayed_fail', nodes=[
-                Family(tag='arome_physiography', ticket=t, nodes=[
-                    LoopFamily(tag='lam_geometries', ticket=t,
-                        loopconf='geometrys',
-                        loopsuffix='-{0.tag}',
-                        nodes=[
-                        Family(tag='PP-aro', ticket=t, on_error='delayed_fail', nodes=[
-                            PGD(tag='pgd-arome', ticket=t, **kw),
-                            Prep(tag='prep-arome', ticket=t, **kw),
-                            ], **kw),
-                        ], **kw),
-                    ], **kw),
-                ], **kw),
             Family(tag='arpege', ticket=t, on_error='delayed_fail', nodes=[
                 Family(tag='arpege_physiography', ticket=t, nodes=[
                     LoopFamily(tag='gauss_grids', ticket=t,
@@ -35,7 +22,7 @@ def setup(t, **kw):
                         loopsuffix='-{0.tag}',
                         nodes=[
                         Family(tag='PP-arp', ticket=t, on_error='delayed_fail', nodes=[
-                            PGD(tag='pgd-arpege', ticket=t, **kw),
+                            PGD(tag='pgd-arpege', openmp=8, ticket=t, **kw),
                             Prep(tag='prep-arpege', ticket=t, **kw),
                             ], **kw),
                         ], **kw),

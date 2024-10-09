@@ -12,8 +12,6 @@ from common.util.hooks import arpifs_obs_error_correl_legacy2oops
 import davai
 
 from davai_taskutil.mixins import DavaiIALTaskMixin, IncludesTaskMixin
-from davai_taskutil.hooks import hook_fix_model, hook_gnam, hook_disable_fullpos, hook_disable_flowdependentb
-
 
 
 class Minim(Task, DavaiIALTaskMixin, IncludesTaskMixin):
@@ -175,7 +173,7 @@ class Minim(Task, DavaiIALTaskMixin, IncludesTaskMixin):
                 kind           = 'config',
                 local          = 'oops.[format]',
                 nativefmt      = '[format]',
-                objects        = 'minim-3DVar_aro',
+                objects        = 't{}_aro'.format((self.NDVar).lower()),
                 scope          = 'oops',
             )
             #-------------------------------------------------------------------------------
@@ -192,51 +190,48 @@ class Minim(Task, DavaiIALTaskMixin, IncludesTaskMixin):
             #-------------------------------------------------------------------------------
             self._wrapped_input(
                 role           = 'OOPSObjectsNamelists',
-                binary         = 'arome',
+                binary         = 'arpifs',
                 format         = 'ascii',
-                intent         = 'inout',
-                genv           = self.conf.appenv,
+                genv           = self.conf.davaienv,
                 kind           = 'namelist',
                 local          = 'naml_[object]',
-                hook_write     = (hook_gnam, {'NAMOOPSWRITE':{'CDMEXP':'MXMINI'}}),
-                object         = ['observations_aro','standard_geometry','bmatrix_aro',
-                                  'write_analysis_aro'],
-                source         = 'objects/naml_[object]',
+                object         = ['observations_tlad','standard_geometry','bmatrix',
+                                  'write_analysis', 'oops_write_spec'],
+                source         = 'OOPS_ARO/naml_[object]',
             )
             #-------------------------------------------------------------------------------
             self._wrapped_input(
                 role           = 'OOPSGomNamelists',
-                binary         = 'arome',
+                binary         = 'arpifs',
                 format         = 'ascii',
-                genv           = self.conf.appenv,
+                genv           = self.conf.davaienv,
                 kind           = 'namelist',
                 local          = 'namelist_[object]',
                 object         = ['gom_setup_0', 'gom_setup_hres', 'jb_cov'],
-                source         = 'objects/naml_[object]',
+                source         = 'OOPS_ARO/namelist_[object]',
             )
             #-------------------------------------------------------------------------------
             self._wrapped_input(
                 role           = 'OOPSModelObjectsNamelists',
-                binary         = 'arome',
+                binary         = 'arpifs',
                 format         = 'ascii',
-                genv           = self.conf.appenv,
+                genv           = self.conf.davaienv,
                 intent         = 'inout',
                 kind           = 'namelist',
                 local          = 'naml_[object]',
-                object         = ['nonlinear_model_3dv_aro', 'linear_model_aro', 'traj_model_3dv_aro'],
-                source         = 'objects/naml_[object]',
+                object         = ['nonlinear_model', 'linear_model', 'traj_model'],
+                source         = 'OOPS_ARO/naml_[object]',
             )
             #-------------------------------------------------------------------------------
             tbnam_leftovers = self._wrapped_input(
                 role           = 'NamelistLeftovers',
-                binary         = 'arome',
+                binary         = 'arpifs',
                 format         = 'ascii',
-                genv           = self.conf.appenv,
-                hook_cvaraux   = (hook_gnam, {'NAMVAR':{'LVARBC':False, 'LTOVSCV':False}}),
+                genv           = self.conf.davaienv,
                 intent         = 'inout',
                 kind           = 'namelist',
                 local          = 'fort.4',
-                source         = 'objects/naml_leftovers_aro',
+                source         = 'OOPS_ARO/namelist_oops_leftovers',
             )
             #-------------------------------------------------------------------------------
 
