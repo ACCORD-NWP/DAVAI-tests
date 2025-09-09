@@ -51,19 +51,11 @@ class Minim(Task, DavaiIALTaskMixin, IncludesTaskMixin):
             self._load_usual_tools()  # LFI tools, ecCodes defs, ...
             #-------------------------------------------------------------------------------
             self._wrapped_input(
-                role           = 'SunFile',
+                role           = 'SunMoonFiles',
                 format         = 'unknown',
-                local          = 'sun_pos.dta',
-                unknown        = 'True',
-                remote         = '/home/gmap/mrpm/piriou/eclipse_soleil_permanente/data_imcce/Sun_2015_2118.dta',
-            )
-            #-------------------------------------------------------------------------------
-            self._wrapped_input(
-                role           = 'MoonFile',
-                format         = 'unknown',
-                local          = 'moon_pos.dta',
-                unknown        = 'True',                
-                remote         = '/home/gmap/mrpm/piriou/eclipse_soleil_permanente/data_imcce/Moon_2015_2118.dta',
+                genv           = self.conf.appenv,
+                kind           = 'sunmoonpositioncoeffs',
+                local          = 'sun_moon_position.tgz',
             )
             #-------------------------------------------------------------------------------
             self._wrapped_input(
